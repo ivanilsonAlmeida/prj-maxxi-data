@@ -17,6 +17,6 @@ export class ProfessionalController {
 
   @Get('/professional')
   public findProfessional() {
-    return null;
+    return this._service.findProfessional();
   }
 }

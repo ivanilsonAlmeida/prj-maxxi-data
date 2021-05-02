@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { RepositoryPostgres } from 'src/repository/repository.postgres';
 
 @Injectable()
 export class ProfessionalService {
-  constructor() {}
+  constructor(private readonly pg: RepositoryPostgres) {}
 
   public saveProfessional() {
     return null;
@@ -12,7 +13,14 @@ export class ProfessionalService {
     return null;
   }
 
-  public findProfessional() {
-    return null;
+  public async findProfessional(): Promise<any> {
+    try {
+      const result = await this.pg.findProfessional();
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
