@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Professional } from 'src/domain/model/professional.model';
 import { TypeProfessional } from 'src/domain/model/type-professional.model';
+import { TypeSaveEdit } from 'src/helper/enum/type-save-edit.enum';
 import { ValidatorsCommon } from 'src/helper/validators.common';
 import { RepositoryPostgres } from 'src/repository/repository.postgres';
 import { ProfessionalAdministration } from './helper/professional.administrator';
@@ -13,12 +14,13 @@ export class ProfessionalService {
     private readonly _validate: ValidatorsCommon,
   ) {}
 
-  public async saveProfessional(payload: any): Promise<any> {
+  public async saveOrEditProfessional(payload: any, typeMethod: TypeSaveEdit): Promise<any> {
     try {
+      let resultQuery;
       const model = this._admin.buildModelProfessional(payload);
 
-      const resultQuery = await this._repository.saveProfessional(model);
-
+      resultQuery = await this._repository.saveOrEditProfessional(model, typeMethod);
+      
       if (this._validate.isNullOrUndefined(resultQuery[0])) {
         throw new Error('Any error on the save professional!');
       }
@@ -31,24 +33,17 @@ export class ProfessionalService {
     }
   }
 
-  public editProfessional() {
-    return null;
-  }
+  
 
-  public async findProfessional(): Promise<any> {
-    let professional: Professional;
-    let typeProfessional: TypeProfessional;
-
+  public async findProfessional(): Promise<Array<Professional>> {
     try {
-      const resultQuery = await this._repository.findProfessional();
+      const listProfessional = await this._repository.findProfessional();
 
-      if (resultQuery.length < 1) {
+      if (listProfessional.length < 1) {
         return;
       }
 
-      // professional = this._admin.buildModelProfessional(professional);
-
-      return resultQuery;
+      return listProfessional;
     } catch (error) {
       console.error(error);
       throw error;

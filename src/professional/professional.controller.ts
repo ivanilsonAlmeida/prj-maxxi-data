@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Header, Post, Put } from '@nestjs/common';
+import { TypeSaveEdit } from 'src/helper/enum/type-save-edit.enum';
 import { ProfessionalService } from './professional.service';
 
 @Controller('')
@@ -8,15 +9,19 @@ export class ProfessionalController {
   @Post('/professional')
   public createProfessional(@Body() payload) {
     try {
-      return this._service.saveProfessional(payload);
+      return this._service.saveOrEditProfessional(payload, TypeSaveEdit.save);
     } catch (error) {
       throw error;
     }
   }
 
   @Put('/professional')
-  public editProfessional() {
-    return null;
+  public editProfessional(@Body() payload) {
+    try {
+      return this._service.saveOrEditProfessional(payload, TypeSaveEdit.edit);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Get('/professional')

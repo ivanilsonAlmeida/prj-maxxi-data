@@ -7,23 +7,27 @@ import { ValidatorsCommon } from 'src/helper/validators.common';
 export class ProfessionalAdministration {
   constructor(private readonly _validation: ValidatorsCommon) {}
   public buildModelProfessional(data: any): Professional {
-    const response = new Professional();
+    const modelProfessional = new Professional();
 
     if (this._validation.isNullOrUndefined(data)) {
       throw new Error('Error on the validations');
     }
 
-    response.nome = data.nome;
-    response.telefone = data.telefone;
-    response.email = data.email;
-    response.tipoDeProfissional = this.buildModelTypeProfessional(
+    if(!this._validation.isNullOrUndefined(data)) {
+      modelProfessional.id = data.id;
+    }
+
+    modelProfessional.nome = data.nome;
+    modelProfessional.telefone = data.telefone;
+    modelProfessional.email = data.email;
+    modelProfessional.tipoDeProfissional = this.buildModelTypeProfessional(
       data.tipoDeProfissional,
     );
-    response.situacao = data.situacao;
-    response.updatedAt = data.updatedAt;
-    response.createdAt = data.createdAt;
+    modelProfessional.situacao = data.situacao;
+    modelProfessional.updatedAt = data.updatedAt;
+    modelProfessional.createdAt = data.createdAt;
 
-    return response;
+    return modelProfessional;
   }
 
   private buildModelTypeProfessional(data: any): TypeProfessional {
@@ -31,6 +35,10 @@ export class ProfessionalAdministration {
 
     if (this._validation.isNullOrUndefined(data)) {
       throw new Error('Error on the validations');
+    }
+
+    if(!this._validation.isNullOrUndefined(data)) {
+      modelTypeProfessional.id = data.id;
     }
 
     modelTypeProfessional.descricao = data.descricao;
