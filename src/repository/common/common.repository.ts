@@ -22,11 +22,15 @@ export abstract class ConnectionRepository {
   }
 
   public async executeQuery(query: string): Promise<any> {
-    await this.pool.connect();
-    const res = await this.pool.query(query);
+    try {
+      await this.pool.connect();
+      const res = await this.pool.query(query);
 
-    if (!res) throw new Error();
+      if (!res) throw new Error();
 
-    return res.rows;
+      return res.rows;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

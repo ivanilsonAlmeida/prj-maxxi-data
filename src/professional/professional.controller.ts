@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { ProfessionalService } from './professional.service';
 
 @Controller('')
@@ -6,8 +6,12 @@ export class ProfessionalController {
   constructor(private readonly _service: ProfessionalService) {}
 
   @Post('/professional')
-  public createProfessional() {
-    return null;
+  public createProfessional(@Body() payload) {
+    try {
+      return this._service.saveProfessional(payload);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Put('/professional')
@@ -17,6 +21,10 @@ export class ProfessionalController {
 
   @Get('/professional')
   public findProfessional() {
-    return this._service.findProfessional();
+    try {
+      return this._service.findProfessional();
+    } catch (error) {
+      throw error;
+    }
   }
 }
