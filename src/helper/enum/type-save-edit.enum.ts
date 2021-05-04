@@ -1,4 +1,4 @@
 export enum TypeSaveEdit {
-    save = 0,
-    edit = 1 
+  save = 0,
+  edit = 1,
 }

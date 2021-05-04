@@ -12,6 +12,12 @@ export class RepositoryPostgres extends ConnectionRepository {
     super();
   }
 
+  /**
+   * Método responsável por iniciar o salvamento ou uma edição de um profissional
+   * @param data Payload enviado através da request POST/PUT
+   * @param type parâmetro que define qual caminho o software vai seguir (Salvar ou Editar)
+   * @returns Retorna o object de professional salvo ou alterado dependendo de qual end-point for chamado
+   */
   public async saveOrEditProfessional(data: Professional, type: TypeSaveEdit) {
     try {
       let query;
@@ -33,6 +39,11 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
+  /**
+   * Método responsável por criar a query para salvamento de um profissional
+   * @param data Payload enviado através da request POST
+   * @returns retorna a query para inserir um profissional no banco
+   */
   private async saveProfessional(data: Professional): Promise<any> {
     try {
       const getDateFromCreationProfessional = format(
@@ -54,6 +65,11 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
+  /**
+   * Método responsável por criar a query para edição de um profissional
+   * @param data Payload enviado através da request PUT
+   * @returns retorna a query para atualizar um profissional no banco
+   */
   private async editProfessional(data: any): Promise<any> {
     try {
       const getDateFromUpdateProfessional = format(
@@ -76,6 +92,11 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
+  /**
+   * Método responsável por salvar o tipo de profissional no banco
+   * @param data payload com os dados do tipo de profissional
+   * @returns retorna o id do tipo de profissional salvo
+   */
   private async saveTypeProfessional(data: TypeProfessional): Promise<any> {
     try {
       const getDateFromCreationTypeProfessional = format(
@@ -99,6 +120,11 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
+  /**
+   * Método responsável por editar o tipo de profissional no banco
+   * @param data payload com os dados do tipo de profissional
+   * @returns retorna o id do tipo de profissional salvo
+   */
   private async editTypeProfessional(data: TypeProfessional): Promise<any> {
     try {
       const getDateFromCreationTypeProfessional = format(
@@ -122,6 +148,10 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
+  /**
+   * Método responsável por criar a query de busca de profissionais
+   * @returns retorna a lista de profissionais
+   */
   public async findProfessional(): Promise<Array<Professional>> {
     try {
       const query = 'select * from professional';
@@ -135,6 +165,11 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
+  /**
+   * Método responsável de montar a lista retornada de profissionais no formato da model
+   * @param professional lista de funcionários recebida do banco
+   * @returns retorna a lista montada de profissionais
+   */
   private async buildList(professional = []): Promise<Array<Professional>> {
     const list: Array<Professional> = [];
 
@@ -151,6 +186,11 @@ export class RepositoryPostgres extends ConnectionRepository {
     return list;
   }
 
+  /**
+   * Método responsável por retornar um tipo de profissional buscando por id
+   * @param typeProfessionalId id de um tipo de profissional cadastrado no banco
+   * @returns retorna os dados de um tipo de profissional
+   */
   private async findTypeProfessionalById(
     typeProfessionalId: any,
   ): Promise<any> {

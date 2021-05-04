@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Professional } from 'src/domain/model/professional.model';
-import { TypeProfessional } from 'src/domain/model/type-professional.model';
 import { TypeSaveEdit } from 'src/helper/enum/type-save-edit.enum';
 import { ValidatorsCommon } from 'src/helper/validators.common';
 import { RepositoryPostgres } from 'src/repository/repository.postgres';
@@ -14,6 +13,12 @@ export class ProfessionalService {
     private readonly _validate: ValidatorsCommon,
   ) {}
 
+  /**
+   * Método que faz a conexão com a camada de repositório para salvar ou editar um professional
+   * @param payload payload com dados do profissional enviado pela controler
+   * @param typeMethod parâmetro que define qual caminho o software vai seguir (Salvar ou Editar)
+   * @returns retorna uma mensagem informando caso o profissional for salvo com sucesso!
+   */
   public async saveOrEditProfessional(
     payload: any,
     typeMethod: TypeSaveEdit,
@@ -42,6 +47,10 @@ export class ProfessionalService {
     }
   }
 
+  /**
+   * Método que faz a conexão com a camada de repositório para buscar todos os professionais
+   * @returns lista de profissionais cadastrados
+   */
   public async findProfessional(): Promise<Array<Professional>> {
     try {
       const listProfessional = await this._repository.findProfessional();

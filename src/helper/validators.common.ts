@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ValidatorsCommon {
+  /**
+   * Método genérico que valida se um objeto é null ou undefined
+   * @param value objeto recebido para validar
+   * @returns retorna um boolean informando se o objeto é null/undefined ou não
+   */
   public isNullOrUndefined(value: any): boolean {
     if (value === null || value === undefined) {
       return true;
@@ -10,6 +15,11 @@ export class ValidatorsCommon {
     }
   }
 
+  /**
+   * Método que faz a validação dos campos obrigatórios do payload
+   * @param data payload enviado para validação
+   * @returns retorna um boolean indicando se existe algum campo obrigatório que não esteja preenchido
+   */
   public validateBody(data: any): boolean {
     if (
       this.isNullOrUndefined(data.nome) ||

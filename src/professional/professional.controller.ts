@@ -6,6 +6,11 @@ import { ProfessionalService } from './professional.service';
 export class ProfessionalController {
   constructor(private readonly _service: ProfessionalService) {}
 
+  /**
+   * Request para Salvar um profissional
+   * @param payload Body enviada pela request para Salvar um novo profissional
+   * @returns retorna uma mensagem informando caso o profissional for salvo com sucesso!
+   */
   @Post('/professional')
   public createProfessional(@Body() payload) {
     try {
@@ -15,6 +20,11 @@ export class ProfessionalController {
     }
   }
 
+  /**
+   * Request para Editar um profissional
+   * @param payload Body enviada pela request para Editar o profissional
+   * @returns retorna uma mensagem informando caso o profissional for salvo com sucesso!
+   */
   @Put('/professional')
   public editProfessional(@Body() payload) {
     try {
@@ -24,6 +34,10 @@ export class ProfessionalController {
     }
   }
 
+  /**
+   * Request que retorna a lista atual de profissionais salvos em banco.
+   * @returns retorna a lista de profissionais registrados
+   */
   @Get('/professional')
   public findProfessional() {
     try {

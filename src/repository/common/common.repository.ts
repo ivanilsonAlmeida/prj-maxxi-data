@@ -13,14 +13,11 @@ export abstract class ConnectionRepository {
     });
   }
 
-  protected async openConnection(): Promise<any> {
-    return await this.pool.connect();
-  }
-
-  protected async closeConnection(): Promise<any> {
-    return await this.pool.end();
-  }
-
+  /**
+   * Método responsável por executar todas as querys enviadas
+   * @param query query recebida para execução no banco
+   * @returns retorna o valor que a query está procurando, salvando ou editando.
+   */
   public async executeQuery(query: string): Promise<any> {
     try {
       await this.pool.connect();
