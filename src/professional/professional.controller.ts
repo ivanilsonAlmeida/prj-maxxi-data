@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { TypeSaveEdit } from 'src/helper/enum/type-save-edit.enum';
 import { ProfessionalService } from './professional.service';
 
