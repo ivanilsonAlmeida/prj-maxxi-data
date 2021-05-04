@@ -14,13 +14,22 @@ export class ProfessionalService {
     private readonly _validate: ValidatorsCommon,
   ) {}
 
-  public async saveOrEditProfessional(payload: any, typeMethod: TypeSaveEdit): Promise<any> {
+  public async saveOrEditProfessional(
+    payload: any,
+    typeMethod: TypeSaveEdit,
+  ): Promise<any> {
     try {
-      let resultQuery;
+      if (!this._validate.validateBody(payload)) {
+        return;
+      }
+
       const model = this._admin.buildModelProfessional(payload);
 
-      resultQuery = await this._repository.saveOrEditProfessional(model, typeMethod);
-      
+      const resultQuery = await this._repository.saveOrEditProfessional(
+        model,
+        typeMethod,
+      );
+
       if (this._validate.isNullOrUndefined(resultQuery[0])) {
         throw new Error('Any error on the save professional!');
       }
@@ -32,8 +41,6 @@ export class ProfessionalService {
       throw error;
     }
   }
-
-  
 
   public async findProfessional(): Promise<Array<Professional>> {
     try {

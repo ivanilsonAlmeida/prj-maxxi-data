@@ -13,7 +13,7 @@ export class ProfessionalAdministration {
       throw new Error('Error on the validations');
     }
 
-    if(!this._validation.isNullOrUndefined(data)) {
+    if (!this._validation.isNullOrUndefined(data)) {
       modelProfessional.id = data.id;
     }
 
@@ -37,7 +37,7 @@ export class ProfessionalAdministration {
       throw new Error('Error on the validations');
     }
 
-    if(!this._validation.isNullOrUndefined(data)) {
+    if (!this._validation.isNullOrUndefined(data)) {
       modelTypeProfessional.id = data.id;
     }
 

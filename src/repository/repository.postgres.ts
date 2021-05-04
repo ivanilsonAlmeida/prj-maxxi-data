@@ -17,10 +17,10 @@ export class RepositoryPostgres extends ConnectionRepository {
       let query;
       if (type === TypeSaveEdit.save) {
         query = await this.saveProfessional(data);
-      } else if(type === TypeSaveEdit.edit) {
+      } else if (type === TypeSaveEdit.edit) {
         query = await this.editProfessional(data);
       }
-      
+
       const result = await super.executeQuery(query);
 
       if (result.length < 0 || this._validate.isNullOrUndefined(result)) {
@@ -28,7 +28,6 @@ export class RepositoryPostgres extends ConnectionRepository {
       }
 
       return result;
-
     } catch (error) {
       throw error;
     }
@@ -36,7 +35,10 @@ export class RepositoryPostgres extends ConnectionRepository {
 
   public async saveProfessional(data: Professional): Promise<any> {
     try {
-      const getDateFromCreationProfessional = format(new Date(), 'dd/MM/yyyy HH:mm:ss')
+      const getDateFromCreationProfessional = format(
+        new Date(),
+        'dd/MM/yyyy HH:mm:ss',
+      );
       const typeProfessionalId = await this.saveTypeProfessional(
         data.tipoDeProfissional,
       );
@@ -54,32 +56,40 @@ export class RepositoryPostgres extends ConnectionRepository {
 
   public async editProfessional(data: any): Promise<any> {
     try {
-      const getDateFromUpdateProfessional = format(new Date(), 'dd/MM/yyyy HH:mm:ss')
+      const getDateFromUpdateProfessional = format(
+        new Date(),
+        'dd/MM/yyyy HH:mm:ss',
+      );
+
       const typeProfessionalId = await this.editTypeProfessional(
         data.tipoDeProfissional,
-        );
-        
+      );
+
       const queryEditProfessional = `update professional set
       nome = '${data.nome}', telefone = '${data.telefone}', 
       email = '${data.email}', tipodeprofissional = ${typeProfessionalId},
-      situacao = ${data.situacao}, updatedAt = '${getDateFromUpdateProfessional}' where id = ${data.id} returning *`;      
+      situacao = ${data.situacao}, updatedAt = '${getDateFromUpdateProfessional}' where id = ${data.id} returning *`;
 
       return queryEditProfessional;
     } catch (error) {
       throw error;
     }
-  }  
+  }
 
   private async saveTypeProfessional(data: TypeProfessional): Promise<any> {
     try {
-      const getDateFromCreationTypeProfessional = format(new Date(), 'dd/MM/yyyy HH:mm:ss')
+      const getDateFromCreationTypeProfessional = format(
+        new Date(),
+        'dd/MM/yyyy HH:mm:ss',
+      );
+
       const querySaveTypeProfessional = `insert into typeprofessional values 
         (default, '${data.descricao}', ${data.situacao}, 
         '${getDateFromCreationTypeProfessional}', '${getDateFromCreationTypeProfessional}') returning id`;
 
       const result = await super.executeQuery(querySaveTypeProfessional);
 
-      if (this._validate.isNullOrUndefined(result) && result.length < 1) {
+      if (this._validate.isNullOrUndefined(result) || result.length < 1) {
         throw new BadRequestException();
       }
 
@@ -91,12 +101,14 @@ export class RepositoryPostgres extends ConnectionRepository {
 
   private async editTypeProfessional(data: TypeProfessional): Promise<any> {
     try {
-      const getDateFromCreationTypeProfessional = format(new Date(), 'dd/MM/yyyy HH:mm:ss')
+      const getDateFromCreationTypeProfessional = format(
+        new Date(),
+        'dd/MM/yyyy HH:mm:ss',
+      );
+
       const queryEditTypeProfessional = `update typeprofessional set 
         descricao = '${data.descricao}', situacao = ${data.situacao}, 
         updatedat = '${getDateFromCreationTypeProfessional}' where id = ${data.id} returning id`;
-
-      console.log('type query => ', queryEditTypeProfessional);      
 
       const result = await super.executeQuery(queryEditTypeProfessional);
 
@@ -111,7 +123,7 @@ export class RepositoryPostgres extends ConnectionRepository {
   }
 
   public async findProfessional(): Promise<Array<Professional>> {
-    try {      
+    try {
       const query = 'select * from professional';
       const result = await super.executeQuery(query);
 
@@ -125,7 +137,7 @@ export class RepositoryPostgres extends ConnectionRepository {
 
   private async buildList(professional = []): Promise<Array<Professional>> {
     const list: Array<Professional> = [];
-    
+
     for (let i = 0; i < professional.length; i++) {
       const typeProfessional = await this.findTypeProfessionalById(
         professional[i].tipodeprofissional,
@@ -150,6 +162,4 @@ export class RepositoryPostgres extends ConnectionRepository {
       throw error;
     }
   }
-
-  
 }
