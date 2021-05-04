@@ -9,4 +9,23 @@ export class ValidatorsCommon {
       return false;
     }
   }
+
+  public validateBody(data: any): boolean {
+    if (
+      this.isNullOrUndefined(data.nome) ||
+      this.isNullOrUndefined(data.tipoDeProfissional) ||
+      this.isNullOrUndefined(data.tipoDeProfissional.descricao) ||
+      this.isNullOrUndefined(data.tipoDeProfissional.situacao) ||
+      this.isNullOrUndefined(data.tipoDeProfissional.updatedAt) ||
+      this.isNullOrUndefined(data.tipoDeProfissional.createdAt) ||
+      this.isNullOrUndefined(data.situacao) ||
+      this.isNullOrUndefined(data.updatedAt) ||
+      this.isNullOrUndefined(data.createdAt)
+    ) {
+      console.error(new Error('Erro in any data from body'));
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
