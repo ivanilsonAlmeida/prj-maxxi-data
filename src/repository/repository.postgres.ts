@@ -33,7 +33,7 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
-  public async saveProfessional(data: Professional): Promise<any> {
+  private async saveProfessional(data: Professional): Promise<any> {
     try {
       const getDateFromCreationProfessional = format(
         new Date(),
@@ -54,7 +54,7 @@ export class RepositoryPostgres extends ConnectionRepository {
     }
   }
 
-  public async editProfessional(data: any): Promise<any> {
+  private async editProfessional(data: any): Promise<any> {
     try {
       const getDateFromUpdateProfessional = format(
         new Date(),
