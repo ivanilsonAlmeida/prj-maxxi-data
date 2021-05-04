@@ -16,11 +16,11 @@ export class ValidatorsCommon {
       this.isNullOrUndefined(data.tipoDeProfissional) ||
       this.isNullOrUndefined(data.tipoDeProfissional.descricao) ||
       this.isNullOrUndefined(data.tipoDeProfissional.situacao) ||
-      this.isNullOrUndefined(data.tipoDeProfissional.updatedAt) ||
-      this.isNullOrUndefined(data.tipoDeProfissional.createdAt) ||
+      this.isNullOrUndefined(data.tipoDeProfissional.updatedat) ||
+      this.isNullOrUndefined(data.tipoDeProfissional.createdat) ||
       this.isNullOrUndefined(data.situacao) ||
-      this.isNullOrUndefined(data.updatedAt) ||
-      this.isNullOrUndefined(data.createdAt)
+      this.isNullOrUndefined(data.updatedat) ||
+      this.isNullOrUndefined(data.createdat)
     ) {
       console.error(new Error('Erro in any data from body'));
       return false;

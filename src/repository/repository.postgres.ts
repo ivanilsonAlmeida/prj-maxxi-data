@@ -143,7 +143,8 @@ export class RepositoryPostgres extends ConnectionRepository {
         professional[i].tipodeprofissional,
       );
       const response: Professional = professional[i];
-      response.tipoDeProfissional = await typeProfessional;
+
+      response.tipoDeProfissional = await typeProfessional[0];
       list.push(response);
     }
 
