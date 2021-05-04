@@ -2,13 +2,15 @@
 
 ## Description
 
-Projeto de desafio Técnico para Maxxi Data, utilizando o stack NodeJs com framework [NestJs]
+Projeto de desafio Técnico para Maxxi Data, utilizando o stack NodeJs com framework NestJs.
+Para começar a rodar o projeto é necessário rodar os scripts em um banco Postgres, que se encontra dentro do projeto no arquivo scripts_postgres.db
 
 
 ## Installation
 
 ```bash
 $ npm install
+$ Em caso de usar o PostgresSQL com Docker, rodar o comando abaixo
 $ npm run postgres:install
 ```
 
@@ -37,17 +39,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
